@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AsientosFree.Views.PucPage"
+             Title="Plan único de cuentas">
+                
+        <VerticalStackLayout Padding="16" Spacing="12">
+            
+            <!-- Formulario para ingresar Cuentas -->
+            <Frame CornerRadius="12" Padding="16" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Entry x:Name="codigoEntry" Placeholder="Código" Keyboard="Numeric" />
+                    <Entry x:Name="nombreEntry" Placeholder="Nombre de la cuenta" />
+                    <Picker x:Name="naturalezaPicker" Title="Seleccione Naturaleza">
+                        <Picker.Items>
+                            <x:String>Debito</x:String>
+                            <x:String>Credito</x:String>
+                    </Picker.Items>
+                    </Picker>                             
+                <Button Text="Agregar cuenta" Clicked="OnAgregarClicked" BackgroundColor="#1976d2" TextColor="White" CornerRadius="8"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Label Text="Cuentas registradas" FontAttributes="Bold" FontSize="18" Margin="0,12,0,4" />
+
+        <!-- Tabla: filas -->
+        <ScrollView>
+            <CollectionView x:Name="pucList" ItemsSource="{Binding Lista}" HeightRequest="800">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10" Margin="0,0,0,10">
+                            <VerticalStackLayout>
+                                <!-- Main Row -->
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Codigo}" VerticalOptions="Center" Grid.Column="0" />
+                                    <Label Text=" " Grid.Column="1" />
+                                    <Label Text="{Binding Nombre}" VerticalOptions="Center" Grid.Column="2" />
+                                    <ImageButton Source="borrar.png"
+                                         BackgroundColor="Transparent"
+                                         WidthRequest="25"
+                                         HeightRequest="25"
+                                         HorizontalOptions="End"
+                                         Grid.Column="3"
+                                         Clicked="OnEliminarClicked"
+                                         CommandParameter="{Binding .}" />
+                                </Grid>
+                                <!-- Naturaleza Label -->
+                                <Label Text="{Binding Naturaleza}" HorizontalOptions="Start" TextColor="{Binding TotalColor}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+    </VerticalStackLayout>
+</ContentPage>
